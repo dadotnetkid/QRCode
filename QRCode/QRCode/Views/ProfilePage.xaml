@@ -3,9 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="QRCode.Views.ProfilePage"
-             Title="Profile">
+             Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout x:Name="ContainerLayout">
-        </StackLayout>
+        <ScrollView>
+            <StackLayout x:Name="ContainerLayout">
+                <Entry x:Name="FirstName"/>
+                <Entry x:Name="LastName"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -27,8 +27,7 @@ namespace QRCode.Views
                     var base64EncodedBytes = System.Convert.FromBase64String(result);
                     var text = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
                     var res = JsonConvert.DeserializeObject<Logs>(text);
-                    FirstName.Text = res.FirstName;
-                    LastName.Text = res.LastName;
+      
                     QRCodeGeneratorService qrGent = new QRCodeGeneratorService();
                     var qr = qrGent.GenerateQR(
                         System.Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(res))));

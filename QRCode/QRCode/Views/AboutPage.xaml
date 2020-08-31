@@ -30,11 +30,10 @@
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="10" x:Name="stack">
-                <Button Text="Click"  
+                <Button Text="Scan"  
                         x:Name="BtnScan"  
                         Clicked="BtnScan_Clicked"/>
-                <Entry x:Name="FirstName"/>
-                <Entry x:Name="LastName"/>
+         
          
             </StackLayout>
         </ScrollView>

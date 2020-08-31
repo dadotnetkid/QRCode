@@ -19,14 +19,9 @@ namespace QRCode.Views
         public ProfilePage()
         {
             InitializeComponent();
-            Init();
+            
         }
 
-        void Init()
-        {
-            ContainerLayout.Children.Add(
-            new QRCodeGeneratorService().GenerateQR(
-                "ewogICJGaXJzdE5hbWUiOiJNYXJrIENocmlzdG9waGVyIiwKICAiTGFzdE5hbWUiOiJDYWNhbCIsCn0="));
-        }
+    
     }
 }
