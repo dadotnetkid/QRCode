@@ -9,8 +9,18 @@ using Xamarin.Forms.Xaml;
 
 namespace QRCode.Views
 {
+    [QueryProperty("UserName", "userName")]
     public partial class AboutPage : ContentPage
     {
+        public string pnlmodel
+        {
+            set
+            {
+                string derulo = Uri.UnescapeDataString(value);
+               
+
+            }
+        }
         public AboutPage()
         {
             InitializeComponent();
@@ -20,6 +30,7 @@ namespace QRCode.Views
         {
             try
             {
+  
                 var scanner = DependencyService.Get<IQrScanningService>();
                 var result = await scanner.ScanAsync();
                 if (result != null)

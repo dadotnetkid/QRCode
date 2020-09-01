@@ -29,8 +29,9 @@ namespace QRCode.Views
         {
             try
             {
-                RestClient restClient = new RestClient("http://");
-                RestRequest restRequest = new RestRequest();
+                RestRequest restRequest = new RestRequest("api/memberapi/Registration", Method.POST);
+                RestClient restClient = new RestClient("http://210.213.232.34:57292");
+                
                 restRequest.AddJsonBody(new
                 {
                     Email = txtEmail.Text,

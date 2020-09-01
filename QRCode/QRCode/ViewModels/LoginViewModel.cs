@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Newtonsoft.Json;
+using QRCode.Models;
 using RestSharp;
 using Xamarin.Forms;
 
@@ -30,15 +32,19 @@ namespace QRCode.ViewModels
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             try
             {
-                RestRequest restRequest = new RestRequest("", Method.POST);
-                RestClient restClient = new RestClient();
-                restRequest.AddJsonBody(new
+                RestRequest restRequest = new RestRequest("token", Method.POST);
+                RestClient restClient = new RestClient("http://210.213.232.34:57292");
+                restRequest.AddJsonBody(new LoginVM()
                 {
                     grant_type = "password",
                     username = UserName,
-                    Password = Password
+                    password = Password
                 });
-                await restClient.ExecuteAsync(restRequest);
+
+                var token = await restClient.PostAsync<AccessTokens>(restRequest);
+                var accesstoken = JsonConvert.DeserializeObject<AccessTokens>(token.UserName);
+                Application.Current.MainPage = new AppShell();
+                await Shell.Current.GoToAsync($"//AboutPage?userName={accesstoken.UserName}");
             }
             catch (Exception e)
             {
@@ -46,7 +52,7 @@ namespace QRCode.ViewModels
             }
 
 
-            Application.Current.MainPage = new AppShell();
+
         }
 
     }
