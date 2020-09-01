@@ -23,11 +23,12 @@
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Spacing="10" x:Name="stack" Padding="20,0,0,20">
-                    <Entry Placeholder="Email" />
-                    <Entry Placeholder="First Name"/>
-                    <Entry Placeholder="Last Name"/>
+                <Entry Placeholder="Email" x:Name="txtEmail" />
+                <Entry Placeholder="First Name" x:Name="txtFirstName"/>
+                <Entry Placeholder="Last Name" x:Name="txtLastName"/>
 
-
+                <Entry Placeholder="Password" IsPassword="True"  x:Name="txtPassword"/>
+                <Button Text="Register" Clicked="btnRegister"/>
             </StackLayout>
         </ScrollView>
     </Grid>
