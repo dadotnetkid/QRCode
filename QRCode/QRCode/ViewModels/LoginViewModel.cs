@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 using QRCode.Models;
@@ -32,19 +33,25 @@ namespace QRCode.ViewModels
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             try
             {
-                RestRequest restRequest = new RestRequest("token", Method.POST);
-                RestClient restClient = new RestClient("http://210.213.232.34:57292");
-                restRequest.AddJsonBody(new LoginVM()
-                {
-                    grant_type = "password",
-                    username = UserName,
-                    password = Password
-                });
 
-                var token = await restClient.PostAsync<AccessTokens>(restRequest);
-                var accesstoken = JsonConvert.DeserializeObject<AccessTokens>(token.UserName);
-                Application.Current.MainPage = new AppShell();
-                await Shell.Current.GoToAsync($"//AboutPage?userName={accesstoken.UserName}");
+                var keyValues = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("username",UserName),
+                    new KeyValuePair<string, string>("password",Password),
+                    new KeyValuePair<string, string>("grant_type","password")
+                };
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://210.213.232.34:57292/token");
+                request.Content = new FormUrlEncodedContent(keyValues);
+                var client = new HttpClient();
+                var response = await client.SendAsync(request);
+         
+                var accesstoken = JsonConvert.DeserializeObject<AccessTokens>(await response.Content.ReadAsStringAsync ());
+                if(!string.IsNullOrEmpty(accesstoken.AccessToken))
+                {
+                    Application.Current.MainPage = new AppShell();
+                    await Shell.Current.GoToAsync($"//AboutPage?userName={accesstoken.UserName}");
+                }    
+                
             }
             catch (Exception e)
             {

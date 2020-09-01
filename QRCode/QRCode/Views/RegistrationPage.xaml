@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:services="clr-namespace:QRCode.Services;assembly=QRCode"
              x:Class="QRCode.Views.RegistrationPage">
 
 
@@ -22,12 +23,16 @@
             </StackLayout>
         </StackLayout>
         <ScrollView Grid.Row="1">
-            <StackLayout Spacing="10" x:Name="stack" Padding="20,0,0,20">
-                <Entry Placeholder="Email" x:Name="txtEmail" />
-                <Entry Placeholder="First Name" x:Name="txtFirstName"/>
-                <Entry Placeholder="Last Name" x:Name="txtLastName"/>
-
-                <Entry Placeholder="Password" IsPassword="True"  x:Name="txtPassword"/>
+            <StackLayout Spacing="10" x:Name="stack" Padding="0,20,0,20">
+                <Entry Placeholder="Email" x:Name="txtEmail"  ReturnType="Next"/>
+                <Entry Placeholder="First Name" x:Name="txtFirstName" ReturnType="Next"/>
+                <Entry Placeholder="Last Name" x:Name="txtLastName" ReturnType="Next"/>
+                <Entry Placeholder="Last Name" x:Name="txtNumber" ReturnType="Next" Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <services:MaskedBehavior Mask="(XXX) XXX-XXX" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Placeholder="Password" IsPassword="True"  x:Name="txtPassword" ReturnType="Done"/>
                 <Button Text="Register" Clicked="btnRegister"/>
             </StackLayout>
         </ScrollView>

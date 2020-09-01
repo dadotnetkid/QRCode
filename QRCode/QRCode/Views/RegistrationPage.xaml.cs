@@ -31,15 +31,17 @@ namespace QRCode.Views
             {
                 RestRequest restRequest = new RestRequest("api/memberapi/Registration", Method.POST);
                 RestClient restClient = new RestClient("http://210.213.232.34:57292");
-                
+
                 restRequest.AddJsonBody(new
                 {
                     Email = txtEmail.Text,
                     FirstName = txtFirstName.Text,
                     LastName = txtLastName.Text,
-                    Password = txtPassword.Text
+                    Password = txtPassword.Text,
+                    PhoneNumber = txtNumber.Text
                 });
                 await restClient.ExecuteAsync(restRequest);
+                Application.Current.MainPage = new LoginPage();
             }
             catch (Exception exception)
             {
